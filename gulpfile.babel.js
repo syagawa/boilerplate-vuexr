@@ -3,7 +3,7 @@ import gulp from 'gulp';
 import webpackStream from "webpack-stream";
 import webpack from "webpack";
 import webpackConfig from "./webpack.config";
-const notifier = require("node-notifier");
+import notifier from "node-notifier";
 import browser from "browser-sync";
 import pug from "gulp-pug";
 import del from "del";
