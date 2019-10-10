@@ -116,6 +116,5 @@ import storage from "./storage.js";
     }
   }).$mount("#app");
 
-  global.app = app;
-
 })();
+
