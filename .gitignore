@@ -1,3 +1,4 @@
 node_modules
 package-lock.json
-dist/
+app/dist/
+app/src/js/vuecomponents

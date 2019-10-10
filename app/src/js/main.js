@@ -5,7 +5,7 @@ import { sync } from "vuex-router-sync";
 
 //module components
 import StartComponent from "./vuecomponents/start.vue";
-import FooterComponent from "./vuecomponents/footer.vue";
+import SubComponent from "./vuecomponents/sub.vue";
 
 //util
 import storage from "./storage.js";
@@ -87,7 +87,7 @@ import storage from "./storage.js";
       name: "start2",
       components: {
         default: StartComponent,
-        footer: FooterComponent
+        sub: SubComponent
       }
     }
 

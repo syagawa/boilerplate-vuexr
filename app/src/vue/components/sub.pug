@@ -1,6 +1,6 @@
 template
   footer#footer
-    p I'm footer
+    p I'm sub
     button(v-on:click="alertSample") click me
 script(type="text/javascript").
   export default {
@@ -20,7 +20,7 @@ script(type="text/javascript").
         this.$router.push({path: "next"});
       },
       alertSample(){
-        alert(this.sample + "footer");
+        alert(this.sample + " sub");
       }
     },
     created(){
