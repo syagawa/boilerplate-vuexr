@@ -19,7 +19,7 @@ const paths = {
     dest: "app/dist/js/"
   },
   pugs: {
-    src: "app/src/pug/**/*.pug",
+    src: "app/src/html/**/*.pug",
     exclude: "!app/src/html/**/_*.pug",
     dest: "app/dist/"
   },
