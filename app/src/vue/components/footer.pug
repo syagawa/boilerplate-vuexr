@@ -1,0 +1,29 @@
+template
+  footer#footer
+    p I'm footer
+    button(v-on:click="alertSample") click me
+script(type="text/javascript").
+  export default {
+    props: ['id'],
+    data: function(){
+      return {
+
+      };
+    },
+    computed: {
+      sample(){
+        return this.$store.getters.currentSample;
+      }
+    },
+    methods: {
+      next(){
+        this.$router.push({path: "next"});
+      },
+      alertSample(){
+        alert(this.sample + "footer");
+      }
+    },
+    created(){
+
+    }
+  }
