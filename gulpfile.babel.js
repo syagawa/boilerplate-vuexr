@@ -32,9 +32,6 @@ const paths = {
   dels: {
     jsincss: {
       src: "app/dist/css/**/*.js"
-    },
-    vuecomponents: {
-      src: "app/src/js/vuecomponents/**/*.vue"
     }
   }
 };
@@ -97,7 +94,7 @@ function sass2css(){
 }
 
 function delfile(){
-  return del([paths.dels.jsincss.src, paths.dels.vuecomponents.src]);
+  return del([paths.dels.jsincss.src]);
 }
 
 function watch(){
