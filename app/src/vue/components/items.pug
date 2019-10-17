@@ -1,0 +1,27 @@
+template
+  div
+    p I'm items
+    ul
+      li(v-for="item in items" v-on:click="goItem(item)")
+        span {{ item.id }}
+script(type="text/javascript").
+  export default {
+    data: function(){
+      return {
+
+      };
+    },
+    computed: {
+      items(){
+        return this.$store.getters.currentItems;
+      }
+    },
+    methods: {
+      goItem(item){
+        this.$router.push({name: "item", params: { id: item.id } });
+      }
+    },
+    created(){
+
+    }
+  }

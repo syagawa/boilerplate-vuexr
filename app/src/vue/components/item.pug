@@ -1,0 +1,35 @@
+template
+  div
+    p I'm item
+    div
+      div {{ item.id }}
+      div {{ item.name }}
+script(type="text/javascript").
+  export default {
+    props: ["id"],
+    data: function(){
+      return {
+
+      };
+    },
+    computed: {
+      item(){
+        const items = this.$store.getters.currentItems;
+        const id = Number(this.id);
+        const res = items.filter(function(elm){
+          console.info(elm);
+          return elm.id === id;
+        });
+        return res[0];
+      }
+    },
+    methods: {
+
+    },
+    created(){
+      console.info("c", this);
+    },
+    mounted(){
+      console.info("m", this);
+    }
+  }

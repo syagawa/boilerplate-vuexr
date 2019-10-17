@@ -6,6 +6,8 @@ import { sync } from "vuex-router-sync";
 //module components
 import StartComponent from "./vuecomponents/start.vue";
 import SubComponent from "./vuecomponents/sub.vue";
+import ItemsComponent from "./vuecomponents/items.vue";
+import ItemComponent from "./vuecomponents/item.vue";
 
 //util
 import storage from "./storage.js";
@@ -43,11 +45,36 @@ import storage from "./storage.js";
   const store = new Vuex.Store({
     strict: VUEX_STRICT,
     state: {
-      sample: "sample string"
+      sample: "sample string",
+      items: [
+        {
+          id: 1,
+          name: "aaa"
+        },
+        {
+          id: 2,
+          name: "bbb"
+        },
+        {
+          id: 3,
+          name: "ccc"
+        },
+        {
+          id: 4,
+          name: "ddd"
+        },
+        {
+          id: 5,
+          name: "eee"
+        }
+      ]
     },
     getters: {
       currentSample(state){
         return state.sample;
+      },
+      currentItems(state){
+        return state.items;
       }
     },
     mutations: {
@@ -89,8 +116,24 @@ import storage from "./storage.js";
         default: StartComponent,
         sub: SubComponent
       }
+    },
+    {
+      path: "/items",
+      name: "items",
+      components: {
+        default: ItemsComponent
+      }
+    },
+    {
+      path: "/items/:id",
+      name: "item",
+      components: {
+        default: ItemComponent
+      },
+      props: {
+        default: true
+      }
     }
-
   ];
   const router = new VueRouter({
     routes: routes
