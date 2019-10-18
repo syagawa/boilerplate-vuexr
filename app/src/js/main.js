@@ -80,6 +80,9 @@ import storage from "./storage.js";
     mutations: {
       setSample(state, { data }){
         state.sample = data;
+      },
+      addItem(state, {item}){
+        state.items.push(item);
       }
     },
     actions: {
@@ -87,6 +90,9 @@ import storage from "./storage.js";
         if(state.sample !== newsample){
           commit("setSample", { data: newsample });
         }
+      },
+      addItem({state, commit}, {item}){
+        commit("addItem", {item});
       },
       created(){
         console.info("created");
