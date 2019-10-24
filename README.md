@@ -23,6 +23,11 @@ $ npm install
 
 $ npx gulp
 
+## display color log and message
+
+$ npx gulp --color
+
+
 # publish files to dist
 
 $ npx gulp build
