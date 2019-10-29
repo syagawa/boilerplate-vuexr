@@ -46,6 +46,7 @@ import storage from "./storage.js";
     strict: VUEX_STRICT,
     state: {
       sample: "sample string",
+      name: "A Big Store",
       items: [
         {
           id: 1,
@@ -149,13 +150,34 @@ import storage from "./storage.js";
   const app = new Vue({
     router,
     store,
+    data: {
+      name: "Small App",
+      ...mapState({
+        get_my_name(state){
+          return `${this.name} call ${state.name} in DATA`;
+        }
+      }),
+      ...mapGetters([
+        "currentSample",
+        "currentItems"
+      ])
+    },
     computed: {
+      ...mapState({
+        myname(state){
+          return `${this.name} call ${state.name} in COMPUTED`;
+        }
+      }),
       ...mapGetters({
-        currentSample: "currentSample"
+        currentSample_other_name: "currentSample"
       })
     },
     methods: {
-
+      ...mapState({
+        getMyName(state){
+          return `${this.name} call ${state.name} in METHOD`;
+        }
+      })
     },
     created(){
       this.$store.dispatch("created");
