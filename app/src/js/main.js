@@ -8,6 +8,7 @@ import StartComponent from "./vuecomponents/start.vue";
 import SubComponent from "./vuecomponents/sub.vue";
 import ItemsComponent from "./vuecomponents/items.vue";
 import ItemComponent from "./vuecomponents/item.vue";
+import ErrorComponent from "./vuecomponents/error.vue";
 
 // store modules
 import SampleNameSpaced from "./sample_namespaced.js";
@@ -151,6 +152,13 @@ import storage from "./storage.js";
       },
       props: {
         default: true
+      }
+    },
+    {
+      path: "*",
+      name: "error",
+      components: {
+        default: ErrorComponent
       }
     }
   ];
