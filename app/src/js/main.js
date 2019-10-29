@@ -196,6 +196,11 @@ import storage from "./storage.js";
   const router = new VueRouter({
     routes: routes
   });
+  router.beforeEach(function(to, from, next){
+    console.log("in beforeEach global to", to);
+    console.log("in beforeEach global from", from);
+    next();
+  });
   sync(store, router);
 
   const app = new Vue({
