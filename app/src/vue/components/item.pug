@@ -4,6 +4,7 @@ template
     div
       div {{ item.id }}
       div {{ item.name }}
+    router-view(name="nestchild", :item="item")
 script(type="text/javascript").
   export default {
     props: ["id"],

@@ -8,6 +8,7 @@ import StartComponent from "./vuecomponents/start.vue";
 import SubComponent from "./vuecomponents/sub.vue";
 import ItemsComponent from "./vuecomponents/items.vue";
 import ItemComponent from "./vuecomponents/item.vue";
+import ItemEditComponent from "./vuecomponents/itemedit.vue";
 import ErrorComponent from "./vuecomponents/error.vue";
 
 // store modules
@@ -93,6 +94,15 @@ import storage from "./storage.js";
           },
           addItem(state, {item}){
             state.items.push(item);
+          },
+          changeItem(state, { name, id }){
+            const item = state.items.find(function(elm){
+              return elm.id === id;
+            });
+            if(!item){
+              return;
+            }
+            item.name = name;
           }
         },
         actions: {
@@ -152,7 +162,15 @@ import storage from "./storage.js";
       },
       props: {
         default: true
-      }
+      },
+      children: [
+        {
+          path: "edit",
+          components: {
+            nestchild: ItemEditComponent
+          }
+        }
+      ]
     },
     {
       path: "*",

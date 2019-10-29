@@ -1,0 +1,31 @@
+template
+  div
+    input(v-model="name")
+script(type="text/javascript").
+  export default {
+    props: ["item"],
+    data: function(){
+      return {
+
+      };
+    },
+    computed: {
+      name: {
+        get(){
+          return this.item.name;
+        },
+        set(value){
+          this.$store.commit("changeItem", { name: value, id: this.item.id });
+        }
+      }
+    },
+    methods: {
+
+    },
+    created(){
+      console.info("c", this);
+    },
+    mounted(){
+      console.info("m", this);
+    }
+  }
