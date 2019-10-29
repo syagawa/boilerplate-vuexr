@@ -173,10 +173,23 @@ import storage from "./storage.js";
       ]
     },
     {
-      path: "*",
+      path: "/error",
       name: "error",
       components: {
         default: ErrorComponent
+      }
+    },
+    {
+      path: "*",
+      name: "other",
+      redirect(to){
+        console.log("in other route", to);
+        const rand = Math.random();
+        if(rand > 0.5){
+          return "/error";
+        }else{
+          return "/";
+        }
       }
     }
   ];
