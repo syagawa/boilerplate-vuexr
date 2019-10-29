@@ -33,3 +33,12 @@ $ npx gulp --color
 $ npx gulp build
 
 ```
+
+## References
+
+* Vuex
+    * https://vuex.vuejs.org/
+* Vue-Router
+    * https://router.vuejs.org/
+* Other Example
+    * https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart
