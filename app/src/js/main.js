@@ -9,6 +9,10 @@ import SubComponent from "./vuecomponents/sub.vue";
 import ItemsComponent from "./vuecomponents/items.vue";
 import ItemComponent from "./vuecomponents/item.vue";
 
+// store modules
+import SampleNameSpaced from "./sample_namespaced.js";
+import Sample from "./sample.js";
+
 //util
 import storage from "./storage.js";
 
@@ -46,63 +50,69 @@ import storage from "./storage.js";
 
   const store = new Vuex.Store({
     strict: VUEX_STRICT,
-    state: {
-      sample: "sample string",
-      name: "A Big Store",
-      items: [
-        {
-          id: 1,
-          name: "aaa"
+    modules: {
+      basic: {
+        state: {
+          sample: "sample string",
+          name: "A Big Store",
+          items: [
+            {
+              id: 1,
+              name: "aaa"
+            },
+            {
+              id: 2,
+              name: "bbb"
+            },
+            {
+              id: 3,
+              name: "ccc"
+            },
+            {
+              id: 4,
+              name: "ddd"
+            },
+            {
+              id: 5,
+              name: "eee"
+            }
+          ]
         },
-        {
-          id: 2,
-          name: "bbb"
+        getters: {
+          currentSample(state){
+            return state.sample;
+          },
+          currentItems(state){
+            return state.items;
+          }
         },
-        {
-          id: 3,
-          name: "ccc"
+        mutations: {
+          setSample(state, { data }){
+            state.sample = data;
+          },
+          addItem(state, {item}){
+            state.items.push(item);
+          }
         },
-        {
-          id: 4,
-          name: "ddd"
-        },
-        {
-          id: 5,
-          name: "eee"
+        actions: {
+          changeSample({ state, commit }, { newsample }){
+            if(state.sample !== newsample){
+              commit("setSample", { data: newsample });
+            }
+          },
+          addItem({state, commit}, {item}){
+            commit("addItem", {item});
+          },
+          created(){
+            console.info("created");
+          },
+          mounted(){
+            console.info("mounted");
+          }
         }
-      ]
-    },
-    getters: {
-      currentSample(state){
-        return state.sample;
       },
-      currentItems(state){
-        return state.items;
-      }
-    },
-    mutations: {
-      setSample(state, { data }){
-        state.sample = data;
-      },
-      addItem(state, {item}){
-        state.items.push(item);
-      }
-    },
-    actions: {
-      changeSample({ state, commit }, { newsample }){
-        if(state.sample !== newsample){
-          commit("setSample", { data: newsample });
-        }
-      },
-      addItem({state, commit}, {item}){
-        commit("addItem", {item});
-      },
-      created(){
-        console.info("created");
-      },
-      mounted(){
-        console.info("mounted");
-      }
+      sample_n: SampleNameSpaced,
+      sample: Sample
     },
     plugins: [
       storePlugin

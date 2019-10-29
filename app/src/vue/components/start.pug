@@ -2,8 +2,15 @@ template
   div
     p I'm Start
     div
-      span {{ sample }}
-      button(v-on:click="addStr") addstr
+      div {{ sample }}
+      button(v-on:click="addStr") add string
+    div
+      div namespaced {{ other_sample_ns }}
+      button(v-on:click="addOtherStrNS") add other string ns
+    div
+      div not namespaced {{ other_sample }}
+      button(v-on:click="addOtherStr") add other string
+    div
       button(v-on:click="next") go next
 script(type="text/javascript").
   export default {
@@ -14,6 +21,12 @@ script(type="text/javascript").
     computed: {
       sample(){
         return this.$store.getters.currentSample;
+      },
+      other_sample_ns(){
+        return this.$store.getters["sample_n/currentSample"];
+      },
+      other_sample(){
+        return this.$store.getters.currentSample_o;
       }
     },
     methods: {
@@ -27,7 +40,16 @@ script(type="text/javascript").
       addStr(){
         const str = this.sample + "add";
         this.$store.dispatch("changeSample", { newsample: str });
+      },
+      addOtherStrNS(){
+        const str = this.other_sample_ns + "odd";
+        this.$store.dispatch("sample_n/changeSample", { newsample: str });
+      },
+      addOtherStr(){
+        const str = this.other_sample + "odd";
+        this.$store.dispatch("changeSample_o", { newsample: str });
       }
+
     },
     created(){
       window.start_component = this;
