@@ -9,6 +9,7 @@ import SubComponent from "./vuecomponents/sub.vue";
 import ItemsComponent from "./vuecomponents/items.vue";
 import ItemComponent from "./vuecomponents/item.vue";
 import ItemEditComponent from "./vuecomponents/itemedit.vue";
+import ItemPrivateComponent from "./vuecomponents/itemprivate.vue";
 import ErrorComponent from "./vuecomponents/error.vue";
 
 // store modules
@@ -17,6 +18,7 @@ import Sample from "./sample.js";
 
 //util
 import storage from "./storage.js";
+import auth from "./auth.js";
 
 (function(){
 
@@ -169,6 +171,15 @@ import storage from "./storage.js";
           components: {
             nestchild: ItemEditComponent
           }
+        },
+        {
+          path: "private",
+          components: {
+            nestchild: ItemPrivateComponent
+          },
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     },
@@ -196,9 +207,16 @@ import storage from "./storage.js";
   const router = new VueRouter({
     routes: routes
   });
+
   router.beforeEach(function(to, from, next){
     console.log("in beforeEach global to", to);
     console.log("in beforeEach global from", from);
+    
+    if(to.meta.requireAuth){
+      if(!auth.isLoggiend(to.params.id)){
+        next({name: "error"});
+      }
+    }
     next();
   });
   sync(store, router);

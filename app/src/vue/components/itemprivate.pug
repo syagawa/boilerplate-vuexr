@@ -1,0 +1,24 @@
+template
+  div
+    p {{ secret }} is Answer to the Ultimate Question of Life, the Universe, and Everything
+script(type="text/javascript").
+  export default {
+    props: ["item"],
+    data: function(){
+      return {
+        secret: "42"
+      };
+    },
+    computed: {
+      
+    },
+    methods: {
+
+    },
+    created(){
+      console.info("c", this);
+    },
+    mounted(){
+      console.info("m", this);
+    }
+  }
