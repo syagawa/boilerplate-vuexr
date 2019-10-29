@@ -5,6 +5,8 @@ template
       div {{ sample }}
       button(v-on:click="addStr") add string
     div
+      button(v-on:click="changeSample({newsample: sample + 'direct'})") add string direct
+    div
       div namespaced {{ other_sample_ns }}
       button(v-on:click="addOtherStrNS") add other string ns
     div
@@ -13,9 +15,20 @@ template
     div
       button(v-on:click="next") go next
 script(type="text/javascript").
+  import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
   export default {
     data: function(){
       return {
+      name: "start component",
+      ...mapState({
+        get_my_sample(state){
+          return `${this.name} call ${state.basic.sample} in DATA`;
+        }
+      }),
+      ...mapGetters([
+        "currentSample",
+        "currentItems"
+      ])
       };
     },
     computed: {
@@ -23,11 +36,17 @@ script(type="text/javascript").
         return this.$store.getters.currentSample;
       },
       other_sample_ns(){
-        return this.$store.getters["sample_n/currentSample"];
+        return this.$store.getters["sample_ns/currentSample"];
       },
       other_sample(){
         return this.$store.getters.currentSample_o;
-      }
+      },
+      ...mapState({
+        mysample(state){
+          console.log(state);
+          return `${this.sample} call ${state.basic.sample} in COMPUTED`;
+        }
+      })
     },
     methods: {
       next(){
@@ -39,17 +58,30 @@ script(type="text/javascript").
       },
       addStr(){
         const str = this.sample + "add";
-        this.$store.dispatch("changeSample", { newsample: str });
+        this.changeSample({ newsample: str });
       },
       addOtherStrNS(){
         const str = this.other_sample_ns + "odd";
-        this.$store.dispatch("sample_n/changeSample", { newsample: str });
+        this.changeSample_ns({ newsample: str });
       },
       addOtherStr(){
         const str = this.other_sample + "odd";
-        this.$store.dispatch("changeSample_o", { newsample: str });
-      }
-
+        this.changeSample_o({ newsample: str });
+      },
+      ...mapState({
+        getMyName(state){
+          return `${this.name} call ${state.name} in METHOD`;
+        }
+      }),
+      ...mapMutations({
+        addCommit: "addItem"
+      }),
+      ...mapActions({
+        addDispatch: "addItem",
+        changeSample: "changeSample",
+        changeSample_o: "changeSample_o",
+        changeSample_ns: "sample_ns/changeSample"
+      })
     },
     created(){
       window.start_component = this;

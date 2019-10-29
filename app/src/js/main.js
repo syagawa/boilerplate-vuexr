@@ -111,8 +111,8 @@ import storage from "./storage.js";
           }
         }
       },
-      sample_n: SampleNameSpaced,
-      sample: Sample
+      sample_ns: SampleNameSpaced,
+      sample_nns: Sample
     },
     plugins: [
       storePlugin
@@ -163,40 +163,11 @@ import storage from "./storage.js";
     router,
     store,
     data: {
-      name: "Small App",
-      ...mapState({
-        get_my_name(state){
-          return `${this.name} call ${state.name} in DATA`;
-        }
-      }),
-      ...mapGetters([
-        "currentSample",
-        "currentItems"
-      ])
+      name: "Small App"
     },
     computed: {
-      ...mapState({
-        myname(state){
-          return `${this.name} call ${state.name} in COMPUTED`;
-        }
-      }),
-      ...mapGetters({
-        currentSample_other_name: "currentSample"
-      })
     },
     methods: {
-      ...mapState({
-        getMyName(state){
-          return `${this.name} call ${state.name} in METHOD`;
-        }
-      }),
-      ...mapMutations({
-        addCommit: "addItem"
-      }),
-      ...mapActions({
-        addDispatch: "addItem"
-      })
-
     },
     created(){
       this.$store.dispatch("created");
