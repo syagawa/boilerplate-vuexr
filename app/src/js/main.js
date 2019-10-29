@@ -25,6 +25,8 @@ import storage from "./storage.js";
 
   const mapGetters = Vuex.mapGetters;
   const mapState = Vuex.mapState;
+  const mapMutations = Vuex.mapMutations;
+  const mapActions = Vuex.mapActions;
 
   const storePlugin = function(store){
     const save = function(state){
@@ -177,7 +179,14 @@ import storage from "./storage.js";
         getMyName(state){
           return `${this.name} call ${state.name} in METHOD`;
         }
+      }),
+      ...mapMutations({
+        addCommit: "addItem"
+      }),
+      ...mapActions({
+        addDispatch: "addItem"
       })
+
     },
     created(){
       this.$store.dispatch("created");
