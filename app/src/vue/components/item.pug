@@ -4,14 +4,14 @@ template
     div
       div {{ item.id }}
       div {{ item.name }}
-    transition(name="fade")
-      router-view(name="nestchild", :item="item")
+    transition(v-bind:name="transitionName")
+      router-view(name="nestchild", :item="item").child-view
 script(type="text/javascript").
   export default {
     props: ["id"],
     data: function(){
       return {
-
+        transitionName: "slide-left"
       };
     },
     computed: {
@@ -33,5 +33,12 @@ script(type="text/javascript").
     },
     mounted(){
       console.info("m", this);
+    },
+    watch:{
+      "$route" (to, from) {
+        const toDepth = to.path.split("/").length
+        const fromDepth = from.path.split("/").length
+        this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left"
+      }
     }
   }
