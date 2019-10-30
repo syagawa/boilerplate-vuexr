@@ -29,10 +29,10 @@ script(type="text/javascript").
 
     },
     created(){
-      console.info("c", this);
+      console.log("created in item component", this);
     },
     mounted(){
-      console.info("m", this);
+      console.log("mounted in item component", this);
     },
     watch:{
       "$route" (to, from) {

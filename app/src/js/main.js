@@ -117,10 +117,10 @@ import auth from "./auth.js";
             commit("addItem", {item});
           },
           created(){
-            console.info("created");
+            console.info("created in store action");
           },
           mounted(){
-            console.info("mounted");
+            console.info("mounted in store action");
           }
         }
       },
@@ -232,9 +232,11 @@ import auth from "./auth.js";
     methods: {
     },
     created(){
+      console.log("created in app");
       this.$store.dispatch("created");
     },
     mounted(){
+      console.log("mounted in app");
       this.$store.dispatch("mounted");
     }
   }).$mount("#app");

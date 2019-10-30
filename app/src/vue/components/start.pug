@@ -85,6 +85,11 @@ script(type="text/javascript").
     },
     created(){
       window.start_component = this;
+      console.log("created in start component", this);
+    },
+    mounted(){
+      console.log("mounted in start component", this);
     }
+
   }
 
