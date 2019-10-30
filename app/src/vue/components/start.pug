@@ -136,6 +136,11 @@ script(type="text/javascript").
     mounted(){
       console.log("mounted in start component", this);
     }
-
+    ,
+    beforeRouteEnter (route, redirect, next) {
+      console.info("in beforeRouteEnter");
+      window.alert("loading");
+      next();
+    }
   }
 
