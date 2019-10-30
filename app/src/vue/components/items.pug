@@ -2,8 +2,9 @@ template
   div
     p I'm items
     ul
-      li(v-for="item in items" v-on:click="goItem(item)")
+      li(v-for="item in items")
         span {{ item.id }}
+        button(v-on:click="goItem(item)") go
     button(v-on:click="addItem") add item
 script(type="text/javascript").
   export default {

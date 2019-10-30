@@ -4,6 +4,9 @@ template
     div
       div {{ item.id }}
       div {{ item.name }}
+    div
+      button(v-on:click="goEdit") edit
+      button(v-on:click="goPrivate") private
     transition(v-bind:name="transitionName")
       router-view(name="nestchild", :item="item").child-view
 script(type="text/javascript").
@@ -26,7 +29,12 @@ script(type="text/javascript").
       }
     },
     methods: {
-
+      goEdit(){
+        this.$router.push({name: "itemedit", params: { id: this.item.id }});
+      },
+      goPrivate(){
+        this.$router.push({name: "itemprivate", params: { id: this.item.id }});
+      }
     },
     created(){
       console.log("created in item component", this);

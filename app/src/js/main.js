@@ -193,12 +193,14 @@ import auth from "./auth.js";
       children: [
         {
           path: "edit",
+          name: "itemedit",
           components: {
             nestchild: ItemEditComponent
           }
         },
         {
           path: "private",
+          name: "itemprivate",
           components: {
             nestchild: ItemPrivateComponent
           },
@@ -232,12 +234,6 @@ import auth from "./auth.js";
   const router = new VueRouter({
     routes: routes
   });
-
-  // router.beforeEnter(function(to, from, next){
-  //   console.log("in beforeEnter global to", to);
-  //   console.log("in beforeEnter global from", from);
-  //   console.log("in beforeEnter global next", next);
-  // });
 
   router.beforeEach(function(to, from, next){
     console.log("in beforeEach global to", to);
