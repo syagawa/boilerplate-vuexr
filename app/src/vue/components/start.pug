@@ -1,34 +1,43 @@
 template
   div
-    p I'm Start
-    div
-      div {{ sample }}
-      button(v-on:click="addStr") add string
-    div
-      button(v-on:click="changeSample({newsample: sample + 'direct'})") add string direct
-    div
-      div namespaced {{ other_sample_ns }}
-      button(v-on:click="addOtherStrNS") add other string ns
-    div
-      div not namespaced {{ other_sample }}
-      button(v-on:click="addOtherStr") add other string
-    div
-      button(v-on:click="next") go next
+    div(v-if="isError")
+      p error
+      button(v-on:click="retry") retry
+    div(v-if="isLoading")
+      p loading
+    div(v-if="isLoadedWithNoError")
+      p I'm Start
+      div
+        div {{ sample }}
+        button(v-on:click="addStr") add string
+      div
+        button(v-on:click="changeSample({newsample: sample + 'direct'})") add string direct
+      div
+        div namespaced {{ other_sample_ns }}
+        button(v-on:click="addOtherStrNS") add other string ns
+      div
+        div not namespaced {{ other_sample }}
+        button(v-on:click="addOtherStr") add other string
+      div
+        button(v-on:click="next") go next
 script(type="text/javascript").
   import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+  import api from "../api.js";
   export default {
     data: function(){
       return {
-      name: "start component",
-      ...mapState({
-        get_my_sample(state){
-          return `${this.name} call ${state.basic.sample} in DATA`;
-        }
-      }),
-      ...mapGetters([
-        "currentSample",
-        "currentItems"
-      ])
+        name: "start component",
+        ...mapState({
+          get_my_sample(state){
+            return `${this.name} call ${state.basic.sample} in DATA`;
+          }
+        }),
+        ...mapGetters([
+          "currentSample",
+          "currentItems"
+        ]),
+        loading: true,
+        errormessage: null
       };
     },
     computed: {
@@ -41,12 +50,28 @@ script(type="text/javascript").
       other_sample(){
         return this.$store.getters.currentSample_o;
       },
+      isError(){
+        if(this.errormessage){
+          return true;
+        }
+      },
+      isLoading(){
+        if(this.loading){
+          return true;
+        }
+      },
+      isLoadedWithNoError(){
+        return !this.isLoading && !this.isError;
+      },
       ...mapState({
         mysample(state){
           console.log(state);
           return `${this.sample} call ${state.basic.sample} in COMPUTED`;
         }
-      })
+      }),
+      ...mapGetters([
+        "isAlreadyGotData"
+      ])
     },
     methods: {
       next(){
@@ -68,6 +93,23 @@ script(type="text/javascript").
         const str = this.other_sample + "odd";
         this.changeSample_o({ newsample: str });
       },
+      getData(){
+        const self = this;
+        api.getData()
+          .then(function(data){
+            self.setData(data);
+            self.loading = false;
+            self.errormessage = null;
+          })
+          .catch(function(err){
+            console.log(err);
+            self.loading = false;
+            self.errormessage = err;
+          });
+      },
+      retry(){
+        this.getData();
+      },
       ...mapState({
         getMyName(state){
           return `${this.name} call ${state.name} in METHOD`;
@@ -80,11 +122,15 @@ script(type="text/javascript").
         addDispatch: "addItem",
         changeSample: "changeSample",
         changeSample_o: "changeSample_o",
-        changeSample_ns: "sample_ns/changeSample"
+        changeSample_ns: "sample_ns/changeSample",
+        setData: "setData"
       })
     },
     created(){
       window.start_component = this;
+      if(!this.isAlreadyGotData){
+        this.getData();
+      }
       console.log("created in start component", this);
     },
     mounted(){

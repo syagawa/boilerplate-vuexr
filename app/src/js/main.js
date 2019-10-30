@@ -80,7 +80,8 @@ import auth from "./auth.js";
               id: 5,
               name: "eee"
             }
-          ]
+          ],
+          maindata: null
         },
         getters: {
           currentSample(state){
@@ -88,6 +89,9 @@ import auth from "./auth.js";
           },
           currentItems(state){
             return state.items;
+          },
+          isAlreadyGotData(state){
+            return state.maindata ? true : false;
           }
         },
         mutations: {
@@ -105,6 +109,9 @@ import auth from "./auth.js";
               return;
             }
             item.name = name;
+          },
+          setData(state, data){
+            state.maindata = data;
           }
         },
         actions: {
@@ -115,6 +122,9 @@ import auth from "./auth.js";
           },
           addItem({state, commit}, {item}){
             commit("addItem", {item});
+          },
+          setData({ commit }, { data }){
+            commit("setData", data);
           },
           created(){
             console.info("created in store action");
@@ -207,6 +217,13 @@ import auth from "./auth.js";
   const router = new VueRouter({
     routes: routes
   });
+
+
+  // router.beforeEnter(function(to, from, next){
+  //   console.log("in beforeEnter global to", to);
+  //   console.log("in beforeEnter global from", from);
+  //   console.log("in beforeEnter global next", next);
+  // });
 
   router.beforeEach(function(to, from, next){
     console.log("in beforeEach global to", to);
