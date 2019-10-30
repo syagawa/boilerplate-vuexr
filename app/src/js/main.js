@@ -4,13 +4,28 @@ import VueRouter from "vue-router";
 import { sync } from "vuex-router-sync";
 
 //module components
-import StartComponent from "./vuecomponents/start.vue";
-import SubComponent from "./vuecomponents/sub.vue";
-import ItemsComponent from "./vuecomponents/items.vue";
-import ItemComponent from "./vuecomponents/item.vue";
-import ItemEditComponent from "./vuecomponents/itemedit.vue";
-import ItemPrivateComponent from "./vuecomponents/itemprivate.vue";
-import ErrorComponent from "./vuecomponents/error.vue";
+// import StartComponent from "./vuecomponents/start.vue";
+// import SubComponent from "./vuecomponents/sub.vue";
+// import ItemsComponent from "./vuecomponents/items.vue";
+// import ItemComponent from "./vuecomponents/item.vue";
+// import ItemEditComponent from "./vuecomponents/itemedit.vue";
+// import ItemPrivateComponent from "./vuecomponents/itemprivate.vue";
+// import ErrorComponent from "./vuecomponents/error.vue";
+
+
+
+// import "core-js/modules/es6.promise";
+// import "core-js/modules/es6.array.iterator";
+const StartComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/start.vue");
+const SubComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/sub.vue");
+const ItemsComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/items.vue");
+const ItemComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/item.vue");
+const ItemEditComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/itemedit.vue");
+const ItemPrivateComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/itemprivate.vue");
+const ErrorComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/error.vue");
+
+
+// const ErrorComponent = () => import("./vuecomponents/error.vue");
 
 // store modules
 import SampleNameSpaced from "./sample_namespaced.js";
@@ -217,7 +232,6 @@ import auth from "./auth.js";
   const router = new VueRouter({
     routes: routes
   });
-
 
   // router.beforeEnter(function(to, from, next){
   //   console.log("in beforeEnter global to", to);

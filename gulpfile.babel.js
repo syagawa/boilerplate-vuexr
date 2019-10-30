@@ -36,6 +36,7 @@ const paths = {
   }
 };
 
+
 function errorHandler(error) {
   var message;
   if(error.message){
@@ -82,6 +83,12 @@ function pug2vue(){
 function js2js(){
   return webpackStream(webpackConfig.js, webpack)
     .on('error', webpackJSError)
+    .pipe(rename(function(path){
+      const detect_chunk = /^js.*chunk/;
+      if(detect_chunk.test(path.dirname)){
+        path.dirname = "./chunk";
+      }
+    }))
     .pipe(gulp.dest(paths.scripts.dest))
     .pipe(browser.reload({stream:true}));
 }
