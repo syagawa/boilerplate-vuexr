@@ -15,7 +15,7 @@ script(type="text/javascript").
     },
     computed: {
       items(){
-        return this.$store.getters.currentItems;
+        return this.$store.getters["items/currentItems"];
       }
     },
     methods: {
@@ -27,7 +27,7 @@ script(type="text/javascript").
           id: 100,
           name: "aaaaaaaaaaaaaaaaaaaaaaa"
         };
-        this.$store.dispatch("addItem", { item: item });
+        this.$store.dispatch("items/addItem", { item: item });
       }
     },
     created(){

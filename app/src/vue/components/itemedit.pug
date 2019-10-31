@@ -15,7 +15,7 @@ script(type="text/javascript").
           return this.item.name;
         },
         set(value){
-          this.$store.commit("changeItem", { name: value, id: this.item.id });
+          this.$store.commit("items/changeItem", { name: value, id: this.item.id });
         }
       }
     },

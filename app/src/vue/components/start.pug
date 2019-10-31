@@ -13,44 +13,32 @@ template
       div
         button(v-on:click="changeSample({newsample: sample + 'direct'})") add string direct
       div
-        div namespaced {{ other_sample_ns }}
-        button(v-on:click="addOtherStrNS") add other string ns
-      div
-        div not namespaced {{ other_sample }}
-        button(v-on:click="addOtherStr") add other string
-      div
         button(v-on:click="nextStart") go next start
       div
         button(v-on:click="goItems") go items
 script(type="text/javascript").
   import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
-  import api from "../api.js";
+  import api from "../api/getrandom.js";
   export default {
     data: function(){
       return {
         name: "start component",
         ...mapState({
           get_my_sample(state){
-            return `${this.name} call ${state.basic.sample} in DATA`;
+            return `${this.name} call ${state.sample.str} in DATA`;
           }
         }),
-        ...mapGetters([
-          "currentSample",
-          "currentItems"
-        ]),
+        ...mapGetters({
+          currentSample: "sample/currentSample",
+          currentItems: "items/currentItems"
+        }),
         loading: true,
         errormessage: null
       };
     },
     computed: {
       sample(){
-        return this.$store.getters.currentSample;
-      },
-      other_sample_ns(){
-        return this.$store.getters["sample_ns/currentSample"];
-      },
-      other_sample(){
-        return this.$store.getters.currentSample_o;
+        return this.$store.getters["sample/currentSample"];
       },
       isError(){
         if(this.errormessage){
@@ -68,12 +56,12 @@ script(type="text/javascript").
       ...mapState({
         mysample(state){
           console.log(state);
-          return `${this.sample} call ${state.basic.sample} in COMPUTED`;
+          return `${this.sample} call ${state.sample.str} in COMPUTED`;
         }
       }),
-      ...mapGetters([
-        "isAlreadyGotData"
-      ])
+      ...mapGetters({
+        isAlreadyGotData: "user/isAlreadyGotData"
+      })
     },
     methods: {
       nextStart(){
@@ -89,14 +77,6 @@ script(type="text/javascript").
       addStr(){
         const str = this.sample + "add";
         this.changeSample({ newsample: str });
-      },
-      addOtherStrNS(){
-        const str = this.other_sample_ns + "odd";
-        this.changeSample_ns({ newsample: str });
-      },
-      addOtherStr(){
-        const str = this.other_sample + "odd";
-        this.changeSample_o({ newsample: str });
       },
       getData(){
         const self = this;
@@ -124,11 +104,9 @@ script(type="text/javascript").
         addCommit: "addItem"
       }),
       ...mapActions({
-        addDispatch: "addItem",
-        changeSample: "changeSample",
-        changeSample_o: "changeSample_o",
-        changeSample_ns: "sample_ns/changeSample",
-        setData: "setData"
+        addDispatch: "items/addItem",
+        changeSample: "sample/changeSample",
+        setData: "user/setData"
       })
     },
     created(){

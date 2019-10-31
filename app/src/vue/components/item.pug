@@ -19,7 +19,7 @@ script(type="text/javascript").
     },
     computed: {
       item(){
-        const items = this.$store.getters.currentItems;
+        const items = this.$store.getters["items/currentItems"];
         const id = Number(this.id);
         const res = items.filter(function(elm){
           console.info(elm);
