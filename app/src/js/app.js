@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { sync } from "vuex-router-sync";
 import store from "./store";
-import mount from "./_components/mount.vue";
+import container from "./_components/container.vue";
 import router from "./router.js";
 
 sync(store, router);
@@ -16,6 +16,6 @@ new Vue({
     console.log("mounted in app");
   },
   render(h){
-    return h(mount);
+    return h(container);
   }
 }).$mount("#mount");
