@@ -1,24 +1,17 @@
 template
   div
-    div(v-if="isError")
-      p error
-      button(v-on:click="retry") retry
-    div(v-if="isLoading")
-      p loading
-    div(v-if="isLoadedWithNoError")
-      p I'm Start
-      div
-        div {{ sample }}
-        button(v-on:click="addStr") add string
-      div
-        button(v-on:click="changeSample({newsample: sample + 'direct'})") add string direct
-      div
-        button(v-on:click="nextStart") go next start
-      div
-        button(v-on:click="goItems") go items
+    p I'm Start
+    div
+      div {{ sample }}
+      button(v-on:click="addStr") add string
+    div
+      button(v-on:click="changeSample({newsample: sample + 'direct'})") add string direct
+    div
+      button(v-on:click="nextStart") go next start
+    div
+      button(v-on:click="goItems") go items
 script(type="text/javascript").
   import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
-  import api from "../api/getrandom.js";
   export default {
     data: function(){
       return {
@@ -31,36 +24,18 @@ script(type="text/javascript").
         ...mapGetters({
           currentSample: "sample/currentSample",
           currentItems: "items/currentItems"
-        }),
-        loading: true,
-        errormessage: null
+        })
       };
     },
     computed: {
       sample(){
         return this.$store.getters["sample/currentSample"];
       },
-      isError(){
-        if(this.errormessage){
-          return true;
-        }
-      },
-      isLoading(){
-        if(this.loading){
-          return true;
-        }
-      },
-      isLoadedWithNoError(){
-        return !this.isLoading && !this.isError;
-      },
       ...mapState({
         mysample(state){
           console.log(state);
           return `${this.sample} call ${state.sample.str} in COMPUTED`;
         }
-      }),
-      ...mapGetters({
-        isAlreadyGotData: "user/isAlreadyGotData"
       })
     },
     methods: {
@@ -78,23 +53,6 @@ script(type="text/javascript").
         const str = this.sample + "add";
         this.changeSample({ newsample: str });
       },
-      getData(){
-        const self = this;
-        api.getData()
-          .then(function(data){
-            self.setData(data);
-            self.loading = false;
-            self.errormessage = null;
-          })
-          .catch(function(err){
-            console.log(err);
-            self.loading = false;
-            self.errormessage = err;
-          });
-      },
-      retry(){
-        this.getData();
-      },
       ...mapState({
         getMyName(state){
           return `${this.name} call ${state.name} in METHOD`;
@@ -105,25 +63,15 @@ script(type="text/javascript").
       }),
       ...mapActions({
         addDispatch: "items/addItem",
-        changeSample: "sample/changeSample",
-        setData: "user/setData"
+        changeSample: "sample/changeSample"
       })
     },
     created(){
       window.start_component = this;
-      if(!this.isAlreadyGotData){
-        this.getData();
-      }
       console.log("created in start component", this);
     },
     mounted(){
       console.log("mounted in start component", this);
-    }
-    ,
-    beforeRouteEnter (route, redirect, next) {
-      console.info("in beforeRouteEnter");
-      //- window.alert("loading");
-      next();
     }
   }
 

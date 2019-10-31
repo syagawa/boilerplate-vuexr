@@ -1,9 +1,73 @@
 template
   div#app
-    router-view.view.header(name="header")
-    router-view.view.main(name="main")
-    router-view.view.sub(name="sub")
-    router-view.view.footer(name="footer")
+    div(v-if="isError")
+      p error
+      button(v-on:click="retry") retry
+    div(v-if="isLoading")
+      p loading
+    div(v-if="isLoadedWithNoError")
+      router-view.view.header(name="header")
+      router-view.view.main(name="main")
+      router-view.view.sub(name="sub")
+      router-view.view.footer(name="footer")
 
 script(type="text/javascript").
-  export default {};
+  import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+  import api from "../api/getrandom.js";
+  export default{
+    data: function(){
+      return {
+        loading: true,
+        errormessage: null
+      };
+    },
+    computed: {
+      isError(){
+        if(this.errormessage){
+          return true;
+        }
+      },
+      isLoading(){
+        if(this.loading){
+          return true;
+        }
+      },
+      isLoadedWithNoError(){
+        return !this.isLoading && !this.isError;
+      },
+      ...mapGetters({
+        isAlreadyGotData: "user/isAlreadyGotData"
+      })
+    },
+    methods: {
+      getData(){
+        const self = this;
+        api.getData()
+          .then(function(data){
+            self.setData(data);
+            self.loading = false;
+            self.errormessage = null;
+            self.got = true;
+          })
+          .catch(function(err){
+            console.log(err);
+            self.loading = false;
+            self.errormessage = err;
+            self.got = false;
+          });
+      },
+      retry(){
+        this.getData();
+      },
+      ...mapActions({
+        setData: "user/setData"
+      })
+    },
+    created(){
+      if(!this.isAlreadyGotData){
+        this.getData();
+      }
+    },
+    mounted(){
+    }
+  }

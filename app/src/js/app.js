@@ -19,5 +19,3 @@ new Vue({
     return h(mount);
   }
 }).$mount("#mount");
-
-
