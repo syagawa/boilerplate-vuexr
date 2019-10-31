@@ -1,5 +1,4 @@
 node_modules
 package-lock.json
 app/dist/
-app/src/js/vuecomponents
-app/src/_temp
+app/src/_components
