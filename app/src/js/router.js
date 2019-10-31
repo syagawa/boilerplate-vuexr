@@ -2,15 +2,15 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import auth from "./api/auth.js";
 
-const HeaderComponent = () => import("./vuecomponents/header.vue");
-const FooterComponent = () => import("./vuecomponents/footer.vue");
-const StartComponent = () => import("./vuecomponents/start.vue");
-const SubComponent = () => import("./vuecomponents/sub.vue");
-const ItemsComponent = () => import("./vuecomponents/items.vue");
-const ItemComponent = () => import("./vuecomponents/item.vue");
-const ItemEditComponent = () => import("./vuecomponents/itemedit.vue");
-const ItemPrivateComponent = () => import("./vuecomponents/itemprivate.vue");
-const ErrorComponent = () => import("./vuecomponents/error.vue");
+const HeaderComponent = () => import("./_temp/header.vue");
+const FooterComponent = () => import("./_temp/footer.vue");
+const StartComponent = () => import("./_temp/start.vue");
+const SubComponent = () => import("./_temp/sub.vue");
+const ItemsComponent = () => import("./_temp/items.vue");
+const ItemComponent = () => import("./_temp/item.vue");
+const ItemEditComponent = () => import("./_temp/itemedit.vue");
+const ItemPrivateComponent = () => import("./_temp/itemprivate.vue");
+const ErrorComponent = () => import("./_temp/error.vue");
 
 Vue.use(VueRouter);
 

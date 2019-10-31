@@ -25,11 +25,17 @@ const paths = {
     exclude: "!app/src/html/**/_*.pug",
     dest: APP_ROOT
   },
+  // vues: {
+  //   src: "app/src/vue/**/*.pug",
+  //   exclude: "!app/src/vue/components/**/_*.pug",
+  //   dest: "app/src/js/vuecomponents/",
+  //   components_src: "app/src/js/**/*.vue"
+  // },
   vues: {
-    src: "app/src/vue/**/*.pug",
-    exclude: "!app/src/vue/components/**/_*.pug",
-    dest: "app/src/js/vuecomponents/",
-    components_src: "app/src/js/**/*.vue"
+    src: "app/src/js/components/**/*.pug",
+    exclude: "!app/src/js/components/**/_*.pug",
+    dest: "app/src/js/_temp/",
+    components_src: "app/src/js/_temp/**/*.vue"
   },
   dels: {
     jsincss: {

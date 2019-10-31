@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { sync } from "vuex-router-sync";
 import store from "./store";
-import mount from "./vuecomponents/mount.vue";
+import mount from "./_temp/mount.vue";
 import router from "./router.js";
 
 sync(store, router);

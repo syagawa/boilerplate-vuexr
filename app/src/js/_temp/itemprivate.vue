@@ -1,0 +1,21 @@
+<template><div><p>{{ secret }} is Answer to the Ultimate Question of Life, the Universe, and Everything</p></div></template><script type="text/javascript">export default {
+  props: ["item"],
+  data: function(){
+    return {
+      secret: "42"
+    };
+  },
+  computed: {
+    
+  },
+  methods: {
+
+  },
+  created(){
+    console.log("created in itemeprivate component", this);
+  },
+  mounted(){
+    console.log("mounted in itemeprivate component", this);
+  }
+
+};</script>
