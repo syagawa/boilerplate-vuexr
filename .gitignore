@@ -1,4 +1,4 @@
 node_modules
 package-lock.json
 app/dist/
-app/src/_components
+app/src/js/_components
