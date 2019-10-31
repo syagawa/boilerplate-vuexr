@@ -3,10 +3,13 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 import { sync } from "vuex-router-sync";
 import store from "./store";
+import app from "./vuecomponents/app.vue";
 
 //helpers
 import auth from "./api/auth.js";
 
+const HeaderComponent = () => import("./vuecomponents/header.vue");
+const FooterComponent = () => import("./vuecomponents/footer.vue");
 const StartComponent = () => import("./vuecomponents/start.vue");
 const SubComponent = () => import("./vuecomponents/sub.vue");
 const ItemsComponent = () => import("./vuecomponents/items.vue");
@@ -14,6 +17,7 @@ const ItemComponent = () => import("./vuecomponents/item.vue");
 const ItemEditComponent = () => import("./vuecomponents/itemedit.vue");
 const ItemPrivateComponent = () => import("./vuecomponents/itemprivate.vue");
 const ErrorComponent = () => import("./vuecomponents/error.vue");
+
 
 
 (function(){
@@ -32,14 +36,16 @@ const ErrorComponent = () => import("./vuecomponents/error.vue");
       path: "/start",
       name: "start",
       components: {
-        default: StartComponent
+        main: StartComponent
       }
     },
     {
       path: "/start2",
       name: "start2",
       components: {
-        default: StartComponent,
+        header: HeaderComponent,
+        footer: FooterComponent,
+        main: StartComponent,
         sub: SubComponent
       }
     },
@@ -47,17 +53,21 @@ const ErrorComponent = () => import("./vuecomponents/error.vue");
       path: "/items",
       name: "items",
       components: {
-        default: ItemsComponent
+        header: HeaderComponent,
+        footer: FooterComponent,
+        main: ItemsComponent
       }
     },
     {
       path: "/items/:id",
       name: "item",
       components: {
-        default: ItemComponent
+        header: HeaderComponent,
+        footer: FooterComponent,
+        main: ItemComponent
       },
       props: {
-        default: true
+        main: true
       },
       children: [
         {
@@ -83,7 +93,7 @@ const ErrorComponent = () => import("./vuecomponents/error.vue");
       path: "/error",
       name: "error",
       components: {
-        default: ErrorComponent
+        main: ErrorComponent
       }
     },
     {
@@ -117,7 +127,7 @@ const ErrorComponent = () => import("./vuecomponents/error.vue");
   });
   sync(store, router);
 
-  const app = new Vue({
+  new Vue({
     router,
     store,
     data: {
@@ -132,8 +142,11 @@ const ErrorComponent = () => import("./vuecomponents/error.vue");
     },
     mounted(){
       console.log("mounted in app");
+    },
+    render(h){
+      return h(app);
     }
-  }).$mount("#app");
+  }).$mount("#mount");
 
 })();
 
