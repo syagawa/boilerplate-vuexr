@@ -26,7 +26,7 @@ const paths = {
     dest: APP_ROOT
   },
   vues: {
-    src: "app/src/vue/components/**/*.pug", 
+    src: "app/src/vue/**/*.pug",
     exclude: "!app/src/vue/components/**/_*.pug",
     dest: "app/src/js/vuecomponents/",
     components_src: "app/src/js/**/*.vue"
@@ -76,6 +76,7 @@ function pug2vue(){
   return gulp.src([paths.vues.src, paths.vues.exclude])
     .pipe(pug())
     .pipe(rename(function(path){
+      path.dirname = ".";
       path.extname = ".vue";
     }))
     .pipe(gulp.dest(paths.vues.dest));

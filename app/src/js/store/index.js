@@ -6,7 +6,6 @@ import Sample from "./modules/sample.js";
 import Items from "./modules/items.js";
 import User from "./modules/user.js";
 
-
 // store plugins
 import SavePlugin from "./plugins/save.js";
 
