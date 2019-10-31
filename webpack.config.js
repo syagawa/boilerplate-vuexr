@@ -15,20 +15,14 @@ if(ENV !== "production"){
 module.exports = {
   "js": {
     mode: ENV,
-    // entry: {
-    //   "bundle": "./app/src/js/main.js"
-    // },
-    // output: {
-    //   filename: '[name].js'
-    // },
     entry: [
       "core-js/modules/es6.promise",
       "core-js/modules/es6.array.iterator",
-      path.resolve(__dirname, "./app/src/js/main.js")
+      path.resolve(__dirname, "./app/src/js/app.js")
     ],
     output: {
       chunkFilename: '[name].js',
-      filename: '[name].js'
+      filename: 'app.js'
     },
     module: {
       rules: [
