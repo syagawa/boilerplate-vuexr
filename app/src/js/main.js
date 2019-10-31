@@ -12,20 +12,14 @@ import { sync } from "vuex-router-sync";
 // import ItemPrivateComponent from "./vuecomponents/itemprivate.vue";
 // import ErrorComponent from "./vuecomponents/error.vue";
 
+const StartComponent = () => import("./vuecomponents/start.vue");
+const SubComponent = () => import("./vuecomponents/sub.vue");
+const ItemsComponent = () => import("./vuecomponents/items.vue");
+const ItemComponent = () => import("./vuecomponents/item.vue");
+const ItemEditComponent = () => import("./vuecomponents/itemedit.vue");
+const ItemPrivateComponent = () => import("./vuecomponents/itemprivate.vue");
+const ErrorComponent = () => import("./vuecomponents/error.vue");
 
-
-// import "core-js/modules/es6.promise";
-// import "core-js/modules/es6.array.iterator";
-const StartComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/start.vue");
-const SubComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/sub.vue");
-const ItemsComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/items.vue");
-const ItemComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/item.vue");
-const ItemEditComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/itemedit.vue");
-const ItemPrivateComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/itemprivate.vue");
-const ErrorComponent = () => import(/* webpackPrefetch: true */"./vuecomponents/error.vue");
-
-
-// const ErrorComponent = () => import("./vuecomponents/error.vue");
 
 // store modules
 import SampleNameSpaced from "./sample_namespaced.js";

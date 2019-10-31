@@ -27,7 +27,7 @@ module.exports = {
       path.resolve(__dirname, "./app/src/js/main.js")
     ],
     output: {
-      chunkFilename: 'js/chunk/[name].js',
+      chunkFilename: '[name].js',
       filename: '[name].js'
     },
     module: {

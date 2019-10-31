@@ -8,20 +8,22 @@ import browser from "browser-sync";
 import pug from "gulp-pug";
 import del from "del";
 import rename from "gulp-rename";
+import path from "path";
 
+const APP_ROOT = "app/dist";
 const paths = {
   styles: {
     src: "app/src/styles/**/*.scss",
-    dest: "app/dist/css/"
+    dest: path.join(APP_ROOT, "css/")
   },
   scripts: {
     src: "app/src/js/**/*.js",
-    dest: "app/dist/js/"
+    dest: path.join(APP_ROOT, "js/")
   },
   pugs: {
     src: "app/src/html/**/*.pug",
     exclude: "!app/src/html/**/_*.pug",
-    dest: "app/dist/"
+    dest: APP_ROOT
   },
   vues: {
     src: "app/src/vue/components/**/*.pug", 
@@ -31,11 +33,10 @@ const paths = {
   },
   dels: {
     jsincss: {
-      src: "app/dist/css/**/*.js"
+      src: path.join(APP_ROOT, "css/**/*.js")
     }
   }
 };
-
 
 function errorHandler(error) {
   var message;
@@ -81,14 +82,23 @@ function pug2vue(){
 }
 
 function js2js(){
+  // for chunkname
+  const chunkname = webpackConfig.js.output.chunkFilename;
+  const chunkdirname = "chunk";
+  const prefix = path.basename(paths.scripts.dest.replace(APP_ROOT, ""));
+  webpackConfig.js.output.chunkFilename = path.join(prefix + "/" + chunkdirname, chunkname);
+
   return webpackStream(webpackConfig.js, webpack)
     .on('error', webpackJSError)
+
+    // for chunkname
     .pipe(rename(function(path){
-      const detect_chunk = /^js.*chunk/;
+      const detect_chunk = new RegExp("\^" + prefix + ".*" + chunkdirname);
       if(detect_chunk.test(path.dirname)){
-        path.dirname = "./chunk";
+        path.dirname = "./" + chunkdirname;
       }
     }))
+
     .pipe(gulp.dest(paths.scripts.dest))
     .pipe(browser.reload({stream:true}));
 }
