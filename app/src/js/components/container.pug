@@ -1,7 +1,7 @@
 template
   div#app
     div(v-if="isError")
-      p error
+      p loading error
       button(v-on:click="retry") retry
     div(v-if="isLoading")
       p loading
@@ -13,7 +13,7 @@ template
 
 script(type="text/javascript").
   import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
-  import api from "../api/getrandom.js";
+  import getrandom from "../helpers/getrandom.js";
   export default{
     data: function(){
       return {
@@ -42,18 +42,16 @@ script(type="text/javascript").
     methods: {
       getData(){
         const self = this;
-        api.getData()
+        getrandom.getData()
           .then(function(data){
             self.setData(data);
             self.loading = false;
             self.errormessage = null;
-            self.got = true;
           })
           .catch(function(err){
             console.log(err);
             self.loading = false;
             self.errormessage = err;
-            self.got = false;
           });
       },
       retry(){
@@ -64,10 +62,13 @@ script(type="text/javascript").
       })
     },
     created(){
+      console.log("created in container component", this);
+
       if(!this.isAlreadyGotData){
         this.getData();
       }
     },
     mounted(){
+      console.log("mounted in container component", this);
     }
   }

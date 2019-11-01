@@ -33,7 +33,10 @@ script(type="text/javascript").
         this.$router.push({name: "itemedit", params: { id: this.item.id }});
       },
       goPrivate(){
-        this.$router.push({name: "itemprivate", params: { id: this.item.id }});
+        this.$router.push({name: "itemprivate", params: { id: this.item.id }})
+          .catch(function(err){
+            console.log("err", err);
+          });
       }
     },
     created(){

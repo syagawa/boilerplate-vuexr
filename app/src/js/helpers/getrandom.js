@@ -5,9 +5,9 @@ export default {
       setTimeout(function(){
         const result = Math.random() > 0.5 ? true : false;
         if(result){
-          return resolve("Success ! You got Data.");
+          return resolve();
         }else{
-          return reject("Could not get Data");
+          return reject();
         }
       }, time);
     });

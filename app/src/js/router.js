@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import auth from "./api/auth.js";
+import auth from "./helpers/auth.js";
 
 const HeaderComponent = () => import("./_components/header.vue");
 const FooterComponent = () => import("./_components/footer.vue");
@@ -11,6 +11,10 @@ const ItemComponent = () => import("./_components/item.vue");
 const ItemEditComponent = () => import("./_components/itemedit.vue");
 const ItemPrivateComponent = () => import("./_components/itemprivate.vue");
 const ErrorComponent = () => import("./_components/error.vue");
+
+
+console.log("ItemComponent", ItemComponent);
+
 
 Vue.use(VueRouter);
 
@@ -101,13 +105,24 @@ const router = new VueRouter({
 router.beforeEach(function(to, from, next){
   console.log("in beforeEach global to", to);
   console.log("in beforeEach global from", from);
-  
+
+  // write check code
+
+  // check in router
   if(to.meta.requireAuth){
-    if(!auth.isLoggiend(to.params.id)){
-      next({name: "error"});
-    }
+    auth.isLoggined(to.params.id)
+      .catch(function(err){
+        console.log("error in g");
+        next({name: "error"});
+      })
+      .then(function(res){
+        next();
+      });
+
+    }else{
+    next();
   }
-  next();
+
 });
 
 export default router;

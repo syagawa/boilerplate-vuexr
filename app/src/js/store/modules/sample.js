@@ -1,5 +1,5 @@
 //helpers
-import auth from "../../api/auth.js";
+import auth from "../../helpers/auth.js";
 
 const state = {
   str: "Sample in other sample"
