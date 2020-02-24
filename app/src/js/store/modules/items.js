@@ -5,23 +5,23 @@ const state = {
   items: [
     {
       id: 1,
-      name: "aaa"
+      name: "item_a"
     },
     {
       id: 2,
-      name: "bbb"
+      name: "item_b"
     },
     {
       id: 3,
-      name: "ccc"
+      name: "item_c"
     },
     {
       id: 4,
-      name: "ddd"
+      name: "item_d"
     },
     {
       id: 5,
-      name: "eee"
+      name: "item_e"
     }
   ]
 };

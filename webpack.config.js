@@ -46,8 +46,31 @@ module.exports = {
         },
         {
           test: /\.vue$/,
-          loader: "vue-loader"
-        }
+          loader: "vue-loader",
+        },
+        {
+          test: /\.css$/,
+          oneOf: [
+            {
+              use: [
+                'vue-style-loader',
+                {
+                  loader: 'css-loader',
+                  options: {
+                    modules: true
+                  }
+                }
+              ]
+            },
+            // this applies to <style> or <style scoped>
+            {
+              use: [
+                'vue-style-loader',
+                'css-loader'
+              ]
+            }
+          ]
+        },
       ]
     },
     plugins: [

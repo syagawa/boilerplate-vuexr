@@ -1,6 +1,14 @@
 template
-  footer I'm footer
+  footer(:class="$style.footermodule").footer
+    hr
+    p I'm footer 
 script(type="text/javascript").
   export default {
 
   };
+
+style(module="", lang="css").
+  .footermodule {
+    margin-top: 20px;
+  }
+
