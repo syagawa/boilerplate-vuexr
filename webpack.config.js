@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const WebpackAutoInject = require("webpack-auto-inject-version");
 const path = require("path");
 
@@ -11,6 +12,7 @@ const MODE = process.env.APP_MODE;
 if(ENV !== "production"){
   ENV = "development";
 }
+console.log("ENV", ENV);
 
 module.exports = {
   "js": {
@@ -85,7 +87,10 @@ module.exports = {
           }
         }
       }),
-      new VueLoaderPlugin()
+      new VueLoaderPlugin(),
+      new webpack.DefinePlugin({
+        "process.env.NODE_ENV": JSON.stringify("production")
+      })
     ],
     resolve: {
       // [Vue warn]: You are using the runtime-only build of Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build. の解決
