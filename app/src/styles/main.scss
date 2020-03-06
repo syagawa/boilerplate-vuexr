@@ -1,3 +1,5 @@
+@import "_variables";
+
 body{
   color: purple;
   p{
@@ -5,6 +7,10 @@ body{
       font-size: 20px;
     }
   }
+}
+
+.view.main{
+  color: $color_main;
 }
 
 //transition

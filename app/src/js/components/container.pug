@@ -1,7 +1,7 @@
 template
   div#app
     div(v-if="isError")
-      p loading error
+      p(:class="$style.err") loading error
       button(v-on:click="retry") retry
     div(v-if="isLoading")
       p loading
@@ -70,5 +70,12 @@ script(type="text/javascript").
     },
     mounted(){
       console.log("mounted in container component", this);
+    }
+  }
+style(module="", lang="scss").
+  .err{
+    color: $color_sub;
+    &::after{
+      content: ": in container"
     }
   }

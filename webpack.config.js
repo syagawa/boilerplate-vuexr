@@ -73,6 +73,25 @@ module.exports = {
             }
           ]
         },
+        {
+          test: /\.scss$/,
+          use: [
+            'vue-style-loader',
+            {
+              loader: 'css-loader',
+              options: { modules: true }
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                prependData: `
+                    @import "./app/src/styles/_variables.scss";
+                `
+              }
+            }
+
+          ]
+        }
       ]
     },
     plugins: [
