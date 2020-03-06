@@ -5,6 +5,10 @@ import container from "./_components/container.vue";
 import router from "./router.js";
 import noneed from "./helpers/noneed.js";
 
+// load font
+import font from "./font.js";
+
+
 sync(store, router);
 
 new Vue({
