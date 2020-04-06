@@ -9,6 +9,9 @@ import pug from "gulp-pug";
 import del from "del";
 import rename from "gulp-rename";
 import path from "path";
+import through2 from "through2";
+
+let jshash;
 
 const APP_ROOT = "app/dist";
 const paths = {
@@ -67,7 +70,12 @@ function webpackCSSError(){
 
 function pug2html(){
   return gulp.src([paths.pugs.src, paths.pugs.exclude])
-    .pipe(pug())
+    .pipe(pug({
+      locals: {
+        "hash": jshash,
+        "appjsname": `app-${jshash}.js`
+      },
+    }))
     .pipe(gulp.dest(paths.pugs.dest))
     .pipe(browser.reload({stream:true}));
 }
@@ -82,6 +90,21 @@ function pug2vue(){
     .pipe(gulp.dest(paths.vues.dest));
 }
 
+
+function setJsHashToGlobal(path){
+  if(!path){
+    return;
+  }
+  const res = path.match(/app-(.+)\.js$/);
+  if(res){
+    const _hash = res[1];
+    if(_hash){
+      jshash = _hash;
+      return _hash;
+    }
+  }
+  return;
+}
 function js2js(){
   // for chunkname
   const chunkname = webpackConfig.js.output.chunkFilename;
@@ -91,16 +114,24 @@ function js2js(){
 
   return webpackStream(webpackConfig.js, webpack)
     .on('error', webpackJSError)
+    .pipe(through2.obj(function (file, enc, cb) {
+      setJsHashToGlobal(file.path);
+      cb(null, file);
+    }))
 
     // for chunkname
     .pipe(rename(function(path){
-      const detect_chunk = new RegExp("\^" + prefix + ".*" + chunkdirname);
+      const detect_chunk = new RegExp("^" + prefix + ".*" + chunkdirname);
       if(detect_chunk.test(path.dirname)){
         path.dirname = "./" + chunkdirname;
       }
     }))
 
     .pipe(gulp.dest(paths.scripts.dest))
+    .pipe(through2.obj(function (file, enc, cb) {
+      pug2html();
+      cb(null, file);
+    }))
     .pipe(browser.reload({stream:true}));
 }
 

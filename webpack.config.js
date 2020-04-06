@@ -23,8 +23,8 @@ module.exports = {
       path.resolve(__dirname, "./app/src/js/app.js")
     ],
     output: {
-      chunkFilename: '[name].js',
-      filename: 'app.js'
+      chunkFilename: '[name]-[hash].js',
+      filename: 'app-[hash].js'
     },
     module: {
       rules: [
