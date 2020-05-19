@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { sync } from "vuex-router-sync";
 import store from "./store";
-import container from "./_components/container.vue";
+import container from "./components/container.vue";
 import router from "./router.js";
 import noneed from "./helpers/noneed.js";
 

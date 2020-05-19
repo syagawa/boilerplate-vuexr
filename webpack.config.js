@@ -47,6 +47,10 @@ module.exports = {
           }
         },
         {
+          test: /\.pug$/,
+          loader: "pug-plain-loader"
+        },
+        {
           test: /\.vue$/,
           loader: "vue-loader",
         },

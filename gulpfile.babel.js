@@ -29,10 +29,7 @@ const paths = {
     dest: APP_ROOT
   },
   vues: {
-    src: "app/src/js/components/**/*.pug",
-    exclude: "!app/src/js/components/**/_*.pug",
-    dest: "app/src/js/_components/",
-    components_src: "app/src/js/_components/**/*.vue"
+    components_src: "app/src/js/components/**/*.vue"
   },
   dels: {
     jsincss: {
@@ -78,16 +75,6 @@ function pug2html(){
     }))
     .pipe(gulp.dest(paths.pugs.dest))
     .pipe(browser.reload({stream:true}));
-}
-
-function pug2vue(){
-  return gulp.src([paths.vues.src, paths.vues.exclude])
-    .pipe(pug())
-    .pipe(rename(function(path){
-      path.dirname = ".";
-      path.extname = ".vue";
-    }))
-    .pipe(gulp.dest(paths.vues.dest));
 }
 
 
@@ -148,7 +135,6 @@ function delfile(){
 
 function watch(){
   gulp.watch(paths.pugs.src, pug2html);
-  gulp.watch(paths.vues.src, pug2vue);
   gulp.watch(paths.vues.components_src, js2js);
   gulp.watch(paths.scripts.src, js2js);
   gulp.watch(paths.styles.src, sass2css);
@@ -166,7 +152,7 @@ function server(){
   });
 }
 
-const build1 = [sass2css, pug2html, pug2vue];
+const build1 = [sass2css, pug2html];
 const build2 = [js2js, delfile];
 const build = gulp.series(...build1, ...build2);
 gulp.task('build', build);
