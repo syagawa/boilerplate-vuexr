@@ -49,7 +49,7 @@
         getrandom
           .getData()
           .then(function(data) {
-            self.setData(data);
+            self.setData({data});
             self.loading = false;
             self.errormessage = null;
           })
